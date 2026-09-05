@@ -1,0 +1,80 @@
+name: Release v1.0.0
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/release-v1.yml
+      - .github/release-notes-v1.0.0.md
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-v1.0.0
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: >-
+      github.repository == 'Jiangyicoder/LLGNEW-Server-Trans' &&
+      github.ref == 'refs/heads/main' &&
+      (github.event_name == 'workflow_dispatch' ||
+       github.event.head_commit.message == 'Publish v1.0.0 release')
+    runs-on: windows-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: pwsh
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+      DOTNET_NOLOGO: '1'
+
+    steps:
+      - name: Check out release source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5
+        with:
+          global-json-file: global.json
+
+      - name: Run core checks with synthetic data
+        run: |
+          dotnet run --project tests/LLG.CoreChecks/LLG.CoreChecks.csproj -c Release -- (Join-Path $env:RUNNER_TEMP 'llg-core-checks')
+          if ($LASTEXITCODE -ne 0) { throw 'Core checks failed.' }
+
+      - name: Build standalone Windows program
+        run: ./publish.ps1
+
+      - name: Prepare release assets
+        run: |
+          $assetDirectory = Join-Path $env:RUNNER_TEMP 'llg-release-assets'
+          New-Item -ItemType Directory -Path $assetDirectory -Force | Out-Null
+          Copy-Item -LiteralPath 'dist/LLG订阅助手.exe' -Destination (Join-Path $assetDirectory 'LLG-SubscriptionHelper-win-x64.exe')
+          Copy-Item -LiteralPath '使用说明.txt' -Destination (Join-Path $assetDirectory 'USER-GUIDE.txt')
+          Copy-Item -LiteralPath 'ThirdPartyNotices.txt' -Destination $assetDirectory
+          $sourceZip = Join-Path $assetDirectory 'LLG-SubscriptionHelper-v1.0.0-source.zip'
+          git archive --format=zip --prefix=LLGNEW-Server-Trans/ --output=$sourceZip HEAD
+          if ($LASTEXITCODE -ne 0) { throw 'Source archive failed.' }
+          $checksums = Get-ChildItem -LiteralPath $assetDirectory -File | Sort-Object Name | ForEach-Object {
+            $hash = (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+            '{0}  {1}' -f $hash, $_.Name
+          }
+          $checksums | Set-Content -LiteralPath (Join-Path $assetDirectory 'SHA256SUMS.txt') -Encoding utf8NoBOM
+          Get-ChildItem -LiteralPath $assetDirectory -File | Select-Object Name, Length
+
+      - name: Upload and publish v1.0.0
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $assetDirectory = Join-Path $env:RUNNER_TEMP 'llg-release-assets'
+          $assetPaths = @(Get-ChildItem -LiteralPath $assetDirectory -File | ForEach-Object FullName)
+          if ($assetPaths.Count -ne 5) { throw 'Expected exactly five release assets.' }
+          gh release create v1.0.0 @assetPaths --repo $env:GITHUB_REPOSITORY --target $env:GITHUB_SHA --title 'LLG 订阅助手 v1.0.0' --notes-file '.github/release-notes-v1.0.0.md' --draft
+          if ($LASTEXITCODE -ne 0) { throw 'Release creation or asset upload failed.' }
+          gh release edit v1.0.0 --repo $env:GITHUB_REPOSITORY --draft=false --latest
+          if ($LASTEXITCODE -ne 0) { throw 'Publishing the release failed.' }
