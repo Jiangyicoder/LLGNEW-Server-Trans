@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "checks": [
+    "Both supported protocols converted",
+    "IPv6, reserved credentials, SNI and certificate flag preserved",
+    "VLESS transport and security preserved",
+    "Unsupported protocol rejects whole result",
+    "Unsupported VLESS TLS rejected",
+    "Invalid port rejected",
+    "Unknown connection field rejected",
+    "Empty list rejected",
+    "Malformed YAML rejected",
+    "Business-level login failure rejected",
+    "Invalid token rejected",
+    "Plaintext successful payload accepted",
+    "Login, AES unwrap and first-party download complete",
+    "Multipart login, original token and app headers verified",
+    "Account and node data encrypted on disk",
+    "Encrypted state survives a new store instance",
+    "Changing account clears old account snapshot",
+    "Saving same account preserves snapshot",
+    "Corrupt encrypted state reported clearly",
+    "Failed login does not proceed to subscription request",
+    "Previously verified v2rayN links match byte for byte"
+  ],
+  "fixtureNodes": 44,
+  "time": "2026-09-05T20:44:25.6691641+08:00"
+}

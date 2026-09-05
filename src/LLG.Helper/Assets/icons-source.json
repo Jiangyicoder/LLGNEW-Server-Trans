@@ -1,0 +1,22 @@
+[
+  {
+    "key": "StatusSuccess",
+    "url": "https://raw.githubusercontent.com/microsoft/fluentui-system-icons/main/assets/Checkmark%20Circle/SVG/ic_fluent_checkmark_circle_24_filled.svg",
+    "sha256": "0d4604052f37bf6f6fca386f091316c5e9c3733a8b8ad77ce38e1cdc40a9f24e"
+  },
+  {
+    "key": "StatusClock",
+    "url": "https://raw.githubusercontent.com/microsoft/fluentui-system-icons/main/assets/Clock/SVG/ic_fluent_clock_24_regular.svg",
+    "sha256": "5b2faea30a81e8db8c2ec212be3c0f1aa7f756e62b2ef3c7f0fc081afdf08726"
+  },
+  {
+    "key": "StatusInfo",
+    "url": "https://raw.githubusercontent.com/microsoft/fluentui-system-icons/main/assets/Info/SVG/ic_fluent_info_24_regular.svg",
+    "sha256": "ec9891767b25630079faca1b06026cab94eee56129dc1264a40d256aa65911bb"
+  },
+  {
+    "key": "StatusError",
+    "url": "https://raw.githubusercontent.com/microsoft/fluentui-system-icons/main/assets/Error%20Circle/SVG/ic_fluent_error_circle_24_regular.svg",
+    "sha256": "56ce670f8d505b8fb2a9e66ae523d3d566aed346f29470666a5d914c7f3f504e"
+  }
+]

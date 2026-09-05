@@ -1,0 +1,9 @@
+**/bin/
+**/obj/
+artifacts/
+dist/
+qa/private/
+qa/standalone/
+qa/no-installed-runtime/
+.publish/
+*.user

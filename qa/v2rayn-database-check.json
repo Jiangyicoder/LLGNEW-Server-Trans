@@ -1,0 +1,26 @@
+{
+  "readOnly": true,
+  "databaseProfiles": 67,
+  "expectedFirstPartyNodes": 44,
+  "matchedConnectionIdentities": 44,
+  "sniAllMatch": true,
+  "certificateFlagsAllMatch": true,
+  "protocolCounts": {
+    "5": 16,
+    "11": 28
+  },
+  "normalizedTransport": [
+    [
+      5,
+      "raw",
+      "",
+      "None"
+    ],
+    [
+      11,
+      "",
+      "tls",
+      "24"
+    ]
+  ]
+}

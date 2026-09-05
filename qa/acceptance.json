@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "platform": "Windows x64",
+  "framework": "WPF / .NET 10",
+  "exe": "dist/LLG订阅助手.exe",
+  "exeBytes": 66053056,
+  "exeSha256": "c8e5769467d361b7456a9f4271d72a585db5ec7eb7e8811666e37a33853e60a1",
+  "standaloneLaunch": {
+    "passed": true,
+    "onlyExeInLaunchFolder": true,
+    "dotnetRootPointedToMissingDirectory": true,
+    "pathExcludedDotnet": true
+  },
+  "coreChecks": 21,
+  "fixtureNodes": 44,
+  "liveUiDownloadNodes": 44,
+  "clipboardExactMatchNodes": 44,
+  "freshAccountSettingsAndRequiredFieldValidation": true,
+  "restartRestoredEncryptedAccountAndSnapshot": true,
+  "v2raynExistingDatabaseReadOnlyMatches": 44,
+  "databaseChangedByAgent": false,
+  "nodeConnectivityTestPerformed": false,
+  "designQa": "passed",
+  "completedAt": "2026-09-05T20:47:56.962300+08:00"
+}

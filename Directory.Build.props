@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+</Project>

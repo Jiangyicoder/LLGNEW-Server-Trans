@@ -8,7 +8,7 @@ Windows 桌面工具：登录 LLG 获取第一方服务器列表，转换为 v2r
 
 ## 运行
 
-运行 `dist/LLG订阅助手.exe`。Windows 10/11 x64，无需另外安装 .NET、Python 或 Node。
+从 Release 下载并运行 `LLG-SubscriptionHelper-win-x64.exe`。Windows 10/11 x64，无需另外安装 .NET、Python 或 Node。自行打包的输出位于 `dist/LLG订阅助手.exe`。
 
 主界面只有“更新服务器列表”“转换为可导入”“设置”三个应用按钮。
 
